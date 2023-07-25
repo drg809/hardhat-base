@@ -1,0 +1,116 @@
+{
+    "bsc_testnet": {
+        "id": 97,
+        "endpoint": "https://rpc.ankr.com/bsc_testnet_chapel",
+        "priceFeed": "0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526",
+        "router": "0xD99D1c33F9fC3444f8101754aBC46c52416550D1",
+        "factory": "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc",
+        "wChainCoin": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+        "stableCoin": "0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7",
+        "whaleBUSD": "0x352a7a5277ec7619500b06fa051974621c1acd12",
+        "methods": {
+            "addLiquidity": "addLiquidity",
+            "addLiquidityETH": "addLiquidityETH"
+        }
+    },
+    "bsc_mainnet": {
+        "id": 56,
+        "endpoint": "https://rpc.ankr.com/bsc",
+        "priceFeed": "0x0567f2323251f0aab15c8dfb1967e4e8a7d42aee",
+        "router": "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+        "factory": "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
+        "wChainCoin": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+        "stableCoin": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+        "whaleBUSD": "0x352a7a5277ec7619500b06fa051974621c1acd12",
+        "WBTC": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
+        "methods": {
+            "addLiquidity": "addLiquidity",
+            "addLiquidityETH": "addLiquidityETH"
+        }
+    },
+    "avalanche_testnet": {
+        "id": 43113,
+        "endpoint": "https://api.avax-test.network/ext/bc/C/rpc",
+        "priceFeed": "0x5498BB86BC934c8D34FDA08E81D444153d0D06aD",
+        "router": "0x2D99ABD9008Dc933ff5c0CD271B88309593aB921",
+        "factory": "0xE4A575550C2b460d2307b82dCd7aFe84AD1484dd",
+        "wChainCoin": "0xd00ae08403B9bbb9124bB305C09058E32C39A48c",
+        "stableCoin": "0x2058ec2791dD28b6f67DB836ddf87534F4Bbdf22",
+        "methods": {
+            "addLiquidity": "addLiquidityAVAX"
+        }
+    },
+    "avalanche_mainnet": {
+        "id": 43114,
+        "endpoint": "https://api.avax.network/ext/bc/C/rpc",
+        "priceFeed": "0x0a77230d17318075983913bc2145db16c7366156",
+        "router": "0xE54Ca86531e17Ef3616d22Ca28b0D458b6C89106",
+        "factory": "0xefa94DE7a4656D787667C749f7E1223D71E9FD88",
+        "wChainCoin": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
+        "stableCoin": "0xc7198437980c041c805A1EDcbA50c1Ce5db95118"
+    },
+    "ethereum_mainnet": {
+        "id": 1,
+        "endpoint": "https://rpc.ankr.com/eth",
+        "priceFeed": "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419",
+        "router": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+        "factory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+        "wChainCoin": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+        "stableCoin": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "WBTC": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+    },
+    "ethereum_goerli": {
+        "id": 5,
+        "endpoint": "https://rpc.ankr.com/eth_goerli",
+        "priceFeed": "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e",
+        "router": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+        "factory": "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
+        "wChainCoin": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+        "stableCoin": "0x07865c6e87b9f70255377e024ace6630c1eaa37f"
+    },
+    "fantom_mainnet": {
+        "id": 250,
+        "endpoint": "https://rpc.ankr.com/fantom",
+        "priceFeed": "0xf4766552D15AE4d256Ad41B6cf2933482B0680dc",
+        "router": "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+        "factory": "0x152eE697f2E276fA89E96742e9bB9aB1F2E61bE3",
+        "wChainCoin": "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "stableCoin": "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"
+    },
+    "fantom_testnet": {
+        "id": 80001,
+        "endpoint": "https://rpc.ankr.com/fantom_testnet",
+        "priceFeed": "0xB8C458C957a6e6ca7Cc53eD95bEA548c52AFaA24",
+        "router": "0xa6AD18C2aC47803E193F75c3677b14BF19B94883",
+        "factory": "0xee4bc42157cf65291ba2fe839ae127e3cc76f741",
+        "wChainCoin": "0xf1277d1ed8ad466beddf92ef448a132661956621",
+        "stableCoin": "0x7d43AABC515C356145049227CeE54B608342c0ad"
+    },
+    "polygon_mainnet": {
+        "id": 137,
+        "endpoint": "https://rpc.ankr.com/polygon",
+        "priceFeed": "0xab594600376ec9fd91f8e885dadf0ce036862de0",
+        "router": "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+        "factory": "0x5757371414417b8c6caad45baef941abc7d3ab32",
+        "wChainCoin": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+        "stableCoin": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
+    },
+    "optimism_mainnet": {
+        "id": 10,
+        "endpoint": "https://rpc.ankr.com/optimism",
+        "priceFeed": "0x0d276fc14719f9292d5c1ea2198673d1f4269246",
+        "router": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+        "factory": "0x1f98431c8ad98523631ae4a59f267346ea31f984",
+        "wChainCoin": "0x4200000000000000000000000000000000000006",
+        "stableCoin": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58"
+    },
+    "arbitrum_mainnet": {
+        "id": 42161,
+        "endpoint": "https://rpc.ankr.com/arbitrum",
+        "priceFeed": "0x639fe6ab55c921f74e7fac1ee960c0b6293ba612",
+        "router": "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
+        "factory": "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+        "wChainCoin": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+        "stableCoin": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9"
+    }
+}

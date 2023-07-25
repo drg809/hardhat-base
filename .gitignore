@@ -1,7 +1,19 @@
 node_modules
+coverage
+coverage.json
+typechain
+typechain-types
+
+#Hardhat files
+cache
+artifacts
+abi
+
+contracts/.DS_Store
+
+.vscode
+
 node_modules/*
 yarn.lock
 package.lock
 .env
-**/.env
-.DS_STORE

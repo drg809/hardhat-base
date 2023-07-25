@@ -1,134 +1,68 @@
-// We import Chai to use its asserting functions here.
-import { Contract, ContractFactory } from "@ethersproject/contracts";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { expect } from "chai";
+import { ethers } from 'hardhat'
+const colors = require('colors');
+import { expect } from 'chai'
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
+import { Contract } from 'ethers';
+import { formatEther, parseEther } from 'ethers/lib/utils';
 
-// The ethers variable is available in the global scope. If you like your code
-// always being explicit, you can add this line at the top:
-import { ethers } from "hardhat";
+//available functions
+describe("Token contract", async () => {
+  let tokenDeployed: Contract;
+  let deployer: SignerWithAddress;
+  let bob: SignerWithAddress;
+  let alice: SignerWithAddress;
 
-// `describe` is a Mocha function that allows you to organize your tests. It's
-// not actually needed, but having your tests organized makes debugging them
-// easier. All Mocha functions are available in the global scope.
 
-// `describe` receives the name of a section of your test suite, and a callback.
-// The callback must define the tests of that section. This callback can't be
-// an async function.
-describe("Token contract", function () {
-  // Mocha has four functions that let you hook into the the test runner's
-  // lifecyle. These are: `before`, `beforeEach`, `after`, `afterEach`.
-
-  // They're very useful to setup the environment for tests, and to clean it
-  // up after they run.
-
-  // A common pattern is to declare some variables, and assign them in the
-  // `before` and `beforeEach` callbacks.
-
-  let Token: ContractFactory;
-  let hardhatToken: Contract;
-  let owner: SignerWithAddress | undefined;
-  let addr1: SignerWithAddress | undefined;
-  let addr2: SignerWithAddress | undefined;
-  let addrs: SignerWithAddress[];
-
-  // `beforeEach` will run before each test, re-deploying the contract every
-  // time. It receives a callback, which can be async.
-  beforeEach(async function () {
-    // Get the ContractFactory and Signers here.
-    Token = await ethers.getContractFactory("Token");
-    [owner, addr1, addr2, ...addrs] = await ethers.getSigners(); 
-    // To deploy our contract, we just have to call Token.deploy() and await
-    // for it to be deployed(), which happens onces its transaction has been
-    // mined.
-    hardhatToken = await Token.deploy();
+  it("1. Get Signer", async () => {
+    const signers = await ethers.getSigners();
+    if (signers[0] !== undefined) {
+      deployer = signers[0];
+      console.log(`${colors.cyan('Deployer Address')}: ${colors.yellow(deployer?.address)}`)
+    }
+    if (signers[1] !== undefined) {
+      bob = signers[1];
+      console.log(`${colors.cyan('Bob Address')}: ${colors.yellow(bob?.address)}`)
+    }
+    if (signers[2] !== undefined) {
+      alice = signers[2];
+      console.log(`${colors.cyan('Alice Address')}: ${colors.yellow(alice?.address)}`)
+    }
   });
 
-  // You can nest describe calls to create subsections.
-  describe("Deployment", function () {
-    // `it` is another Mocha function. This is the one you use to define your
-    // tests. It receives the test name, and a callback function.
+  it("2. Deploy Contract", async () => {
 
-    // If the callback function is async, Mocha will `await` it.
-    it("Should set the right owner", async function () {
-      // Expect receives a value, and wraps it in an Assertion object. These
-      // objects have a lot of utility methods to assert values.
+    const tokenName = "MyToken";
+    const tokenFactory = await ethers.getContractFactory(tokenName);
+    tokenDeployed = await tokenFactory.deploy();
+    await tokenDeployed.deployed();
+    console.log(`${colors.cyan('Token desplegado correctamente')}`)
 
-      if(owner === undefined) throw new Error('Signers not found');
-      
-      // This test expects the owner variable stored in the contract to be equal
-      // to our Signer's owner.
-      expect(await hardhatToken.owner()).to.equal(owner.address);
-    });
+    console.log(
+        colors.cyan("Token Address: ") + colors.yellow(tokenDeployed.address)
+    );
+  });
 
-    it("Should assign the total supply of tokens to the owner", async function () {
-      if(owner === undefined)  throw new Error('Signers not found');
+  it("2. Check owner balance ", async () => {
+   const tokenSupply = await tokenDeployed.totalSupply();
+   expect(await tokenDeployed.balanceOf(deployer?.address)).to.be.eq(tokenSupply);
+   console.log()
+ });
+
+
+
+  it("5. Transfer From Owner To Bob ", async () => {
+    await tokenDeployed.transferFrom(deployer.address, bob.address, parseEther("1000"))
+    expect(await tokenDeployed.balanceOf(bob?.address)).to.be.eq(parseEther("1000"));
+    console.log()
+  });
+
   
-      const ownerBalance = await hardhatToken.balanceOf(owner.address);
-      expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
-    });
+  it("6. Transfer From Bob To Alice ", async () => {
+      await tokenDeployed.connect(bob).transfer(alice?.address, parseEther("100"))
+      expect(await tokenDeployed.balanceOf(alice?.address)).to.be.eq(parseEther("100"));
+      expect(await tokenDeployed.balanceOf(bob?.address)).to.be.eq(parseEther("900"));
+      console.log()
   });
+  
 
-  describe("Transactions", function () {
-    it("Should transfer tokens between accounts", async function () {
-      if(addr1 === undefined || addr2 === undefined) {
-        throw new Error('Signers not found');
-      }
-      // Transfer 50 tokens from owner to addr1
-      await hardhatToken.transfer(addr1.address, 50);
-      const addr1Balance = await hardhatToken.balanceOf(addr1.address);
-      expect(addr1Balance).to.equal(50);
-
-      // Transfer 50 tokens from addr1 to addr2
-      // We use .connect(signer) to send a transaction from another account
-      await hardhatToken.connect(addr1).transfer(addr2.address, 50);
-      const [newAddr1Balance, addr2Balance] = await Promise.all([
-        hardhatToken.balanceOf(addr1.address),
-        hardhatToken.balanceOf(addr2.address),
-      ]);
-      expect(newAddr1Balance).to.equal(0);
-      expect(addr2Balance).to.equal(50);
-    });
-
-    it("Should fail if sender doesn’t have enough tokens", async function () {
-      if(owner === undefined || addr1 === undefined) {
-        throw new Error('Signers not found');
-      }
-
-      const initialOwnerBalance = await hardhatToken.balanceOf(owner.address);
-
-      // Try to send 1 token from addr1 (0 tokens) to owner (1000 tokens).
-      // `require` will evaluate false and revert the transaction.
-      await expect(
-        hardhatToken.connect(addr1).transfer(owner.address, 1)
-      ).to.be.revertedWith("Not enough tokens");
-
-      // Owner balance shouldn't have changed.
-      expect(await hardhatToken.balanceOf(owner.address)).to.equal(
-        initialOwnerBalance
-      );
-    });
-
-    it("Should update balances after transfers", async function () {
-      if(owner === undefined || addr1 === undefined || addr2 === undefined) {
-        throw new Error('Signers not found');
-      }
-      const initialOwnerBalance = await hardhatToken.balanceOf(owner.address);
-
-      // Transfer 100 tokens from owner to addr1.
-      await hardhatToken.transfer(addr1.address, 100);
-
-      // Transfer another 50 tokens from owner to addr2.
-      await hardhatToken.transfer(addr2.address, 50);
-
-      // Check balances.
-      const finalOwnerBalance = await hardhatToken.balanceOf(owner.address);
-      expect(finalOwnerBalance).to.equal(initialOwnerBalance - 150);
-
-      const addr1Balance = await hardhatToken.balanceOf(addr1.address);
-      expect(addr1Balance).to.equal(100);
-
-      const addr2Balance = await hardhatToken.balanceOf(addr2.address);
-      expect(addr2Balance).to.equal(50);
-    });
-  });
 });

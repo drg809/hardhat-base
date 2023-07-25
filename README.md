@@ -36,8 +36,8 @@ Para hacer el deploy y la verficación de los contratos inteligentes sigue las n
 npx hardhat test test/merkle-airdrop/MultiSenderAirdrop.test.ts
 
 ```sh
-npx hardhat node --fork https://data-seed-prebsc-2-s3.binance.org:8545
-npx hardhat node --fork https://api.avax-test.network/ext/bc/C/rpc
+npx hardhat node --fork https://ethereum-goerli.publicnode.com
+
 
 npx hardhat node --fork https://api.avax-test.network/ext/bc/C/rpc --fork-block-number 18071664
 
