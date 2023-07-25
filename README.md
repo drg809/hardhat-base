@@ -1,4 +1,4 @@
-# Sicrux Contracts - Powered by Hardhat Typescript Template
+# Test Contracts - Powered by Hardhat Typescript Template
 
 Create and test smart contracts using Hardhat with Typescript.
 
